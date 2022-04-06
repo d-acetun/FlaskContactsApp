@@ -10,22 +10,23 @@ class Bd:
         )
 
         self.cursor = self.conection.cursor()
-        print('conexion exitosa')
+        # print('conexion exitosa')
 
     def insert(self, nombre, telefono, email):
-        sql = f"INSERT INTO productos (nombre, telefono, email) VALUES ('{nombre}', {telefono},{email})"
+        sql = f"INSERT INTO contactos (nombre, telefono, email) VALUES ('{nombre}', '{telefono}','{email}')"
         try:
             self.cursor.execute(sql)
             self.conection.commit()
-            print('Se agrego el producto')
+            # print('Se agrego el producto')
         except Exception as e:
             raise
     def select(self, id):
-        sql = f'SELECT * FROM registro WHERE id={id}'
+        sql = f'SELECT * FROM contactos WHERE id={id}'
         try:
             self.cursor.execute(sql)
             user = self.cursor.fetchone()
-            print("Id: ", user[0], " nombre: ", user[1], " edad ", user[2])
+            return user
+            # print("Id: ", user[0], " nombre: ", user[1], " edad ", user[2])
         except Exception as e:
             raise
 
@@ -41,8 +42,8 @@ class Bd:
         except Exception as e:
             raise
 
-    def update(self, id, nombre, telefono, email):
-        sql = f"UPDATE productos set nombre='{nombre}', telefono='{telefono}', email='{email}' WHERE id={id}"
+    def update(self, id, name, phone, email):
+        sql = f"UPDATE contactos set nombre='{name}', telefono='{phone}', email='{email}' WHERE id={id}"
 
         try:
             self.cursor.execute(sql)
@@ -52,7 +53,7 @@ class Bd:
             raise
 
     def delete(self, id):
-        sql = f"DELETE FROM productos WHERE id={id}"
+        sql = f"DELETE FROM contactos WHERE id={id}"
         try:
             self.cursor.execute(sql)
             self.conection.commit()

@@ -18,18 +18,33 @@ def add_contact():
         name = request.form['name']
         phone = request.form['phone']
         email = request.form['email']
+        bd.insert(name, phone, email)
         # print(name, phone, email)
         flash('Contact added successfully')
         return redirect(url_for('index'))
     # return '<h1>Add Contact</h1>'
 
-@app.route('/edit_contact/<id>', methods=['GET', 'POST'])
-def edit_contact(id):
-    return f'<h1>Edit Contact {id}</h1>'
+@app.route('/get_contact/<id>', methods=['GET', 'POST'])
+def get_contact(id):
+    contact = bd.select(id)
+    return render_template('edit.html', contact=contact)
 
-@app.route('/delete_contact')
-def delete_contact():
-    return '<h1>Delete Contact</h1>'
+@app.route('/update_contact/<id>', methods=['POST'])
+def update_contact(id):
+    if request.method == 'POST':
+        name = request.form['name']
+        phone = request.form['phone']
+        email = request.form['email']
+        bd.update(id, name, phone, email)
+        flash('Contact updated successfully')
+        return redirect(url_for('index'))
+    # return '<h1>Update Contact</h1>'
+
+@app.route('/delete_contact/<id>', methods=[ 'POST', 'GET' ])
+def delete_contact(id):
+    bd.delete(id)
+    flash('Contact deleted successfully')
+    return redirect(url_for('index'))
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
 
