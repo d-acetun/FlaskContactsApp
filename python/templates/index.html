@@ -1,8 +1,13 @@
 {% extends "layout.html" %} {% block body %}
 
 <div class="container">
+  <div class="row mt-3">
+    <div class="col-12">
+      <h1 class="text-light text-center">CONTACTS APP</h1>
+    </div>
+  </div>
   <div class="row mt-5 align-items-center">
-    <div class="col-md-3 border mb-5">
+    <div class="col-md-3 mb-5">
       {% with messages = get_flashed_messages() %} {% if messages %} {% for
       message in messages %}
       {% with color="success" %}
@@ -57,7 +62,7 @@
           </div>
         </form>
     </div>
-    <div class="col-md-8 border ms-md-5 mb-5">
+    <div class="col-md-8 ms-md-5 mb-5">
       <table class="table table-responsive table-dark table-striped">
         <thead>
           <tr>
